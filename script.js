@@ -112,11 +112,21 @@ window.addEventListener('DOMContentLoaded', () => {
         return false;
     }
 
-    function takeRandomCell(indices) {
-        const availableIndices = indices.filter(index => board[index] === '');
+    function getSecureRandomInt(max) {
+        const array = new Uint32Array(1);
+        window.crypto.getRandomValues(array);
+        return array[0] % max;
+    }
+    
+    function takeRandomCell() {
+        const availableIndices = board
+            .map((cell, index) => (cell === '' ? index : null))
+            .filter(index => index !== null);
+    
         if (availableIndices.length > 0) {
-            const randomIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
-            makeMove(randomIndex);
+            const randomIndex = getSecureRandomInt(availableIndices.length);
+            const selectedCellIndex = availableIndices[randomIndex];
+            makeMove(selectedCellIndex);
             return true;
         }
         return false;
