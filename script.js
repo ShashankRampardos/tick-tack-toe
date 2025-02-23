@@ -37,7 +37,7 @@ window.addEventListener('DOMContentLoaded', () => {
             running = false;
         } else {
             statusText.textContent = `Computer's turn...`;
-            setTimeout(computerTurn, 500);
+            setTimeout(computerTurn, 1200);
         }
     }
 
